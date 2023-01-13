@@ -131,8 +131,9 @@ module M2yTvlx
     private
 
     def get_bank(req)
+      req['chave'].present? ? ispb = req['chave']['dadosConta']['ispb'] : isbp = req['recebedor']['ispb']
       list_bank = HTTParty.get(BANKS_PIX, verify: false, headers: { 'Content-Type': 'application/json' })
-      list_bank.select { |x| x['ispb'] == req['recebedor']['ispb'] }.first
+      list_bank.select { |x| x['ispb'] == ispb }.first
     end
   end
 end
